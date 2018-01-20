@@ -139,6 +139,7 @@
                 var sortAsc = true;
                 var orderChars = ["▲", "▼"];
                 var currentExplorerPath;
+                var CURRENTFILENAME='<?php echo basename(__FILE__);?>';
                 var jsonString = '<?php echo ' { "' . basename(getcwd()) . '": ' . getDirContents('.') . '}'; ?>';
                 var fileTree = JSON.parse(jsonString);
                 var htm = getNavListElementFromDir(fileTree);
@@ -277,6 +278,7 @@
                                 });
                             }
                         } else {
+                            if(o!=CURRENTFILENAME){
                             tdName.innerHTML = "<span class='file'></span>" + o;
                             tdSize.innerHTML = object[o]["size"] / 1000 + " Ko";
                             tdDate.innerHTML = new Date(parseInt(object[o]["modificationDate"]) * 1000).toLocaleDateString();
@@ -290,6 +292,7 @@
                             tr.addEventListener("dblclick", function (e) {
                                 e.currentTarget.children[0].children[1].click();
                             });
+                            }
                         }
 
                     }
@@ -365,7 +368,7 @@
                     dirExplorer.appendChild(getTableElementFromDir(branch));
                     var allTDs=Array.from(document.getElementsByTagName("TD")).concat(Array.from(document.getElementsByTagName("TH")));
                     for(var i=0;i<allTDs.length;i++){
-                        allTDs[i].style.minWidth=allTDs[i].offsetWidth+"px";console.log(allTDs[i].style.minWidth);
+                        allTDs[i].style.minWidth=allTDs[i].offsetWidth+"px";
                     }
                 }
 
